@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        xmlns: xml namespace xml命名空间
+        xmlns:xsi xml schema instance xml 遵守的具体规范
+        xsi:schemaLocation 本文档 xml遵守的规范
+     -->
+
+
+    <!--
+        构造器实例化
+        对应Bean对象需要提供空构造
+    -->
+    <bean id="typeDao" class="org.example.dao.TypeDao">
+        <!-- collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!--
+        静态工厂实例化
+            1.定义工厂类及对应的静态方法
+            2.配置bean对象对应的工厂类及静态方法
+
+            id:需要被实例化的bean id
+            class:静态工厂类的路径
+            factory-method:静态工厂中实例化对象的方法
+    -->
+    <bean id="typeService" class="org.example.factory.StaticFactory" factory-method="createService"></bean>
+
+    <!--
+        1.定义工厂类对应的方法
+        2.配置工厂对象
+        3.配置bean对象对应的工厂对象及工厂方法
+
+        factory-bean=工厂对象对应的id属性值
+        factory-method=工程类中的方法
+    -->
+    <!--工厂对象-->
+    <bean id="instanceFactory" class="org.example.factory.InstanceFactory"></bean>
+    <!--bean对象-->
+    <bean id="typeController" factory-bean="instanceFactory" factory-method="createTypeController"></bean>
+</beans>
